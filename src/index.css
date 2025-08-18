@@ -7,13 +7,13 @@
 @layer base {
   :root {
     --background: 247 249 252; /* Cool gray-50 */
-    --foreground: 221 227 238; /* Slate-800 */
+    --foreground: 51 65 85; /* Slate-700 - darker for better contrast */
 
     --card: 255 255 255; /* Pure white */
-    --card-foreground: 221 227 238;
+    --card-foreground: 51 65 85; /* Match foreground for consistency */
 
     --popover: 255 255 255;
-    --popover-foreground: 221 227 238;
+    --popover-foreground: 51 65 85;
 
     /* Professional blue palette */
     --primary: 213 94% 68%; /* Modern blue */
