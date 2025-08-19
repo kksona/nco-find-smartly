@@ -6,14 +6,14 @@
 
 @layer base {
   :root {
-    --background: 247 249 252; /* Cool gray-50 */
-    --foreground: 221 227 238; /* Slate-800 */
+    --background: 210 40% 98%; /* Cool gray-50 */
+    --foreground: 222.2 47.4% 11.2%; /* Slate-800 */
 
-    --card: 255 255 255; /* Pure white */
-    --card-foreground: 221 227 238;
+    --card: 0 0% 100%; /* Pure white */
+    --card-foreground: 222.2 47.4% 11.2%;
 
-    --popover: 255 255 255;
-    --popover-foreground: 221 227 238;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
 
     /* Professional blue palette */
     --primary: 213 94% 68%; /* Modern blue */
@@ -35,7 +35,7 @@
     --destructive-foreground: 255 255 255;
 
     --border: 214.3 31.8% 91.4%;
-    --input: 255 255 255;
+    --input: 0 0% 100%;
     --input-border: 220 13% 85%;
     --ring: 213 94% 68%;
 
@@ -55,8 +55,8 @@
 
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(213 94% 68%), hsl(180 83% 55%));
-    --gradient-subtle: linear-gradient(180deg, hsl(255 255 255), hsl(247 249 252));
-    --gradient-card: linear-gradient(180deg, hsl(255 255 255), hsl(250 250 252));
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%), hsl(210 40% 98%));
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(240 6% 97%));
 
     /* Shadows */
     --shadow-soft: 0 1px 3px 0 hsl(0 0% 0% / 0.1), 0 1px 2px 0 hsl(0 0% 0% / 0.06);
