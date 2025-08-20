@@ -1,73 +1,90 @@
-# Welcome to your Lovable project
+## NCO Smart Search — AI-Powered Occupation Code Search
 
-## Project info
+[Live Demo](https://nco-find-smartly-e6lw57jpr-jaisimha-ks-projects.vercel.app)
 
-**URL**: https://lovable.dev/projects/a3fcb1d1-08af-4fc7-aed2-d2cf414c953d
+### Overview
+NCO Smart Search helps users find relevant NCO-2015 occupation codes using a fast, user-friendly interface and intelligent matching (exact, synonym-based, and typo-tolerant fuzzy search).
 
-## How can I edit this code?
+### Features
+- Intelligent search: exact match, rich synonyms, and typo tolerance (Damerau–Levenshtein)
+- Polished UI built with shadcn-ui + Tailwind CSS
+- Subtle, professional micro-animations (no flashy effects)
+- Mock dataset covering a broad set of roles for realistic demos
 
-There are several ways of editing your application.
+### Tech Stack
+- React + TypeScript (Vite)
+- shadcn-ui (Radix primitives)
+- Tailwind CSS (+ tailwindcss-animate)
 
-**Use Lovable**
+## Getting Started
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/a3fcb1d1-08af-4fc7-aed2-d2cf414c953d) and start prompting.
+### Prerequisites
+- Node.js 18+ and npm
 
-Changes made via Lovable will be committed automatically to this repo.
+### Install
+```bash
+npm install
+```
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### Development
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Production Build
+```bash
+npm run build
+npm run preview
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Project Structure
+```text
+src/
+  components/
+    HeroSection.tsx
+    SearchBar.tsx
+    SearchResults.tsx
+    ui/*
+  data/
+    mockResults.ts         # roles dataset + search logic
+  pages/
+    Index.tsx
+  lib/
+    utils.ts
+public/
+  mylogo.png               # custom favicon (you provide)
+  placeholder.svg
+  robots.txt
+index.html                 # favicon links + meta
+```
 
-**Use GitHub Codespaces**
+## Search Behavior
+Search is powered by a hybrid approach implemented in `src/data/mockResults.ts`:
+- Token overlap across title, description, category, and relatedTerms
+- Synonym expansion (e.g., RN → nurse, frontend → software engineer)
+- Typo tolerance using Damerau–Levenshtein distance (e.g., "sofware enginer")
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Example queries to demo
+- Typos: `sofware enginer`, `eletrician`, `acountent`, `weldding`, `registred nurs`
+- Synonyms/aliases: `RN`, `frontend developer`, `product owner`, `brand manager`, `CSR`, `joiner`
+- Related phrases: `build dashboards sql`, `design bridges and roads`, `install water pipes`, `deploy ml pipelines`
 
-## What technologies are used for this project?
+## Favicon / Tab Icon
+Place your custom icon at `public/mylogo.png` and ensure it’s referenced in `index.html`:
+```html
+<link rel="icon" type="image/png" href="/mylogo.png?v=1" />
+```
+Recommended sizes: 256×256 or 512×512 PNG. After replacing, hard refresh the browser (Ctrl+Shift+R).
 
-This project is built with:
+## Deployment
+This app runs well on platforms like Vercel/Netlify.
+- For Vercel: import the repo, framework preset “Vite”, default build `npm run build` and output `dist/`.
+- Post-deploy, verify the favicon and search behavior on the live URL.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Scripts
+- `npm run dev` — Start dev server
+- `npm run build` — Production build
+- `npm run preview` — Preview build locally
 
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/a3fcb1d1-08af-4fc7-aed2-d2cf414c953d) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## License
+MIT
