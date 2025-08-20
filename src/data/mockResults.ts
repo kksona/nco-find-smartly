@@ -139,46 +139,101 @@ export const mockSearchResults: Record<string, NCOResult[]> = {
 
 export const getSearchResults = (query: string): NCOResult[] => {
   const normalizedQuery = query.toLowerCase().trim();
-  
+
   // Direct matches
   if (mockSearchResults[normalizedQuery]) {
     return mockSearchResults[normalizedQuery];
   }
-  
-  // Partial matches and synonyms
-  const synonymMap: Record<string, string> = {
-    "developer": "software engineer",
-    "programmer": "software engineer", 
-    "coder": "software engineer",
-    "seamstress": "tailor",
-    "sewing": "tailor",
-    "garment": "tailor",
-    "registered nurse": "nurse",
-    "rn": "nurse",
-    "nursing": "nurse",
-    "instructor": "teacher",
-    "educator": "teacher",
-    "professor": "teacher",
-    "cook": "chef",
-    "kitchen": "chef",
-    "culinary": "chef"
+
+  // Build a corpus from all mock data for fuzzy matching
+  const corpus: Array<{ key: string; items: NCOResult[]; tokens: string[] }> = Object.entries(mockSearchResults).map(([key, items]) => ({
+    key,
+    items,
+    tokens: [
+      key,
+      ...items.flatMap((it) => [
+        it.title,
+        it.description,
+        it.category,
+        ...(it.relatedTerms || [])
+      ])
+    ]
+      .join(" ")
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, " ")
+      .split(/\s+/)
+      .filter(Boolean)
+  }));
+
+  // Simple fuzzy scoring: count of overlapping tokens and substring presence
+  const queryTokens = normalizedQuery
+    .replace(/[^a-z0-9\s]/g, " ")
+    .split(/\s+/)
+    .filter(Boolean);
+
+  const scoreEntry = (entry: { tokens: string[]; key: string }) => {
+    let score = 0;
+    for (const t of queryTokens) {
+      if (entry.tokens.includes(t)) score += 3;
+      // partial token matches (prefix/suffix)
+      if (entry.tokens.some((et) => et.startsWith(t) || et.endsWith(t))) score += 2;
+      // substring presence in combined string
+      if (entry.key.includes(t)) score += 2;
+    }
+    // Bonus if key has all tokens as substrings
+    if (queryTokens.every((t) => entry.key.includes(t))) score += 3;
+    return score;
   };
-  
+
+  const ranked = corpus
+    .map((e) => ({ e, score: scoreEntry(e) }))
+    .sort((a, b) => b.score - a.score);
+
+  const top = ranked[0];
+  if (top && top.score > 0) {
+    // Map a heuristic score to confidence bump
+    const boost = Math.min(10, top.score);
+    return top.e.items.map((item, idx) => ({
+      ...item,
+      confidence: Math.max(50, Math.min(99, item.confidence + Math.max(0, boost - idx)))
+    }));
+  }
+
+  // Synonym fallback
+  const synonymMap: Record<string, string> = {
+    developer: "software engineer",
+    programmer: "software engineer",
+    coder: "software engineer",
+    seamstress: "tailor",
+    sewing: "tailor",
+    garment: "tailor",
+    "registered nurse": "nurse",
+    rn: "nurse",
+    nursing: "nurse",
+    instructor: "teacher",
+    educator: "teacher",
+    professor: "teacher",
+    cook: "chef",
+    kitchen: "chef",
+    culinary: "chef",
+  };
+
   for (const [synonym, baseQuery] of Object.entries(synonymMap)) {
     if (normalizedQuery.includes(synonym) && mockSearchResults[baseQuery]) {
       return mockSearchResults[baseQuery];
     }
   }
-  
+
   // Default fallback results for demo
   return [
     {
       code: "0000.00",
       title: "No Exact Match Found",
-      description: "The search term entered doesn't match our current database. Please try a different job title or use the suggested terms above.",
+      description:
+        "The search term entered doesn't match our current database. Please try a related job title or use a broader keyword.",
       confidence: 45,
       category: "General",
-      relatedTerms: ["try different terms"]
-    }
+      relatedTerms: ["try: software engineer, tailor, nurse, teacher, chef"],
+    },
   ];
 };
