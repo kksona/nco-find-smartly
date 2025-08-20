@@ -2,9 +2,9 @@ import { Brain, Search, Zap } from "lucide-react";
 
 export const HeroSection = () => {
   return (
-    <div className="text-center mb-12">
+    <div className="text-center mb-12 animate-fade-in">
       <div className="flex justify-center mb-6">
-        <div className="relative">
+        <div className="relative animate-float">
           <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-glow">
             <Brain className="w-8 h-8 text-white" />
           </div>
@@ -25,15 +25,15 @@ export const HeroSection = () => {
       </p>
       
       <div className="flex justify-center gap-8 mb-8">
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground transition-transform duration-200 hover:scale-105">
           <Zap className="w-4 h-4 text-primary" />
           <span>Instant Results</span>
         </div>
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground transition-transform duration-200 hover:scale-105">
           <Brain className="w-4 h-4 text-primary" />
           <span>AI-Powered</span>
         </div>
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground transition-transform duration-200 hover:scale-105">
           <Search className="w-4 h-4 text-primary" />
           <span>Semantic Matching</span>
         </div>

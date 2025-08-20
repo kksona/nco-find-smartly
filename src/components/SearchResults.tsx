@@ -42,7 +42,7 @@ export const SearchResults = ({ results, query }: SearchResultsProps) => {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto space-y-6">
+    <div className="w-full max-w-5xl mx-auto space-y-6 animate-fade-in">
       <div className="text-center mb-8">
         <h2 className="text-2xl font-bold text-foreground mb-2">
           Search Results for "{query}"
@@ -56,7 +56,7 @@ export const SearchResults = ({ results, query }: SearchResultsProps) => {
         {results.map((result, index) => (
           <Card
             key={result.code}
-            className="p-6 hover:shadow-medium transition-all duration-300 animate-fade-in bg-gradient-card border-0 shadow-soft"
+            className="p-6 hover:shadow-medium transition-all duration-300 animate-fade-in bg-gradient-card border-0 shadow-soft hover:-translate-y-0.5"
             style={{ animationDelay: `${index * 100}ms` }}
           >
             <div className="flex items-start justify-between mb-4">

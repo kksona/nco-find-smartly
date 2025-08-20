@@ -23,7 +23,7 @@ export const SearchBar = ({ onSearch, loading }: SearchBarProps) => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full max-w-4xl mx-auto animate-fade-in">
       <form onSubmit={handleSubmit} className="relative">
         <div className="relative flex items-center">
           <div className="absolute left-4 flex items-center pointer-events-none">
@@ -44,7 +44,7 @@ export const SearchBar = ({ onSearch, loading }: SearchBarProps) => {
               type="button"
               variant="ghost"
               size="sm"
-              className="h-10 w-10 rounded-xl hover:bg-accent"
+              className="h-10 w-10 rounded-xl hover:bg-accent transition-transform duration-200 hover:scale-105"
               title="Voice Search (Demo)"
             >
               <Mic className="w-4 h-4" />
@@ -53,7 +53,7 @@ export const SearchBar = ({ onSearch, loading }: SearchBarProps) => {
             <Button
               type="submit"
               disabled={!query.trim() || loading}
-              className="h-10 px-6 rounded-xl bg-gradient-primary hover:opacity-90 transition-all duration-300"
+              className="h-10 px-6 rounded-xl bg-gradient-primary hover:opacity-90 transition-all duration-300 active:scale-[0.98]"
             >
               {loading ? (
                 <div className="flex items-center gap-2">
@@ -82,7 +82,7 @@ export const SearchBar = ({ onSearch, loading }: SearchBarProps) => {
               setQuery(suggestion);
               onSearch(suggestion);
             }}
-            className="text-xs rounded-full border-primary/20 hover:border-primary hover:bg-primary-light transition-all duration-200"
+            className="text-xs rounded-full border-primary/20 hover:border-primary hover:bg-primary-light transition-all duration-200 hover:scale-105"
           >
             {suggestion}
           </Button>
